@@ -6,7 +6,6 @@ import ptBR from 'date-fns/locale/pt-BR'
 
 import { api } from '../services/api';
 import { convertDurationToTimeString } from '../utils/convertDurationToTimeString';
-
 import styles from './home.module.scss';
 
 type Episode = {
@@ -16,8 +15,7 @@ type Episode = {
     thumbnail: string;    
     publishedAt: string;
     duration: string;
-    durationAsString: string;
-    description: string;
+    durationAsString: string;    
     url: string;
 }
 
@@ -38,7 +36,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
             {latestEpisodes.map(episode =>{
               return (
                 <li key={episode.id}>
-                  <Image 
+                  <Image
                     width={192} 
                     height={192} 
                     src={episode.thumbnail} 
@@ -56,7 +54,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                     <span>{episode.durationAsString}</span>
                   </div>
 
-                  <button type="button">
+                  <button type="button" onClick={() => play(episode)}>
                     <img src="/play-green.svg" alt="Tocar episódio"/>
                   </button>
                 </li>
@@ -140,7 +138,6 @@ export const getStaticProps: GetStaticProps = async () => {
       publishedAt: format(parseISO(episode.published_at), 'd MMM yy', {locale: ptBR}),
       duration: Number(episode.file.duration),
       durationAsString: convertDurationToTimeString(Number(episode.file.duration)),
-      description: episode.description,
       url: episode.file.url,
     };
   })
@@ -158,3 +155,7 @@ export const getStaticProps: GetStaticProps = async () => {
     revalidate: 60 * 60 * 8,
   }
 }
+function play(episode: Episode): void {
+  throw new Error('Function not implemented.');
+}
+
