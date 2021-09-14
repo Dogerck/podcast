@@ -54,7 +54,9 @@ export default function Episode ({ episode }: EpisodeProps) {
                 <span>{episode.durationAsString}</span>                
             </header>
 
-            <div className={styles.description} dangerouslySetInnerHTML={{ __html: episode.description}} />
+            <div 
+            className={styles.description} 
+            dangerouslySetInnerHTML={{ __html: episode.description}} />
                 
             
         </div>
